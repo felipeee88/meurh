@@ -53,24 +53,6 @@ export class UserService {
     );
   }
 
-  updateUser(id: string, user: Partial<User>): Observable<User> {
-    return this.http.put<ApiResponse<User>>(
-      `${this.apiBaseUrl}/api/users/${id}`,
-      user
-    ).pipe(
-      map(response => {
-        if (response.data) {
-          return response.data;
-        }
-        throw new Error('Invalid response from server');
-      }),
-      catchError(error => {
-        console.error('Error updating user:', error);
-        return throwError(() => error);
-      })
-    );
-  }
-
   deleteUser(id: string): Observable<void> {
     return this.http.delete<ApiResponse<void>>(
       `${this.apiBaseUrl}/api/users/${id}`
@@ -83,4 +65,3 @@ export class UserService {
     );
   }
 }
-

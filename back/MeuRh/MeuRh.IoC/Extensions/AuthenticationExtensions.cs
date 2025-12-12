@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
 namespace MeuRh.IoC.Extensions;
@@ -30,7 +31,33 @@ public static class AuthenticationExtensions
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = jwtIssuer,
                 ValidAudience = jwtAudience,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecretKey)),
+                ClockSkew = TimeSpan.FromMinutes(5)
+            };
+
+            options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents
+            {
+                OnAuthenticationFailed = context =>
+                {
+                    var loggerFactory = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>();
+                    var logger = loggerFactory.CreateLogger("JwtBearer");
+                    logger.LogError(context.Exception, "Falha na autenticação JWT");
+                    return Task.CompletedTask;
+                },
+                OnTokenValidated = context =>
+                {
+                    var loggerFactory = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>();
+                    var logger = loggerFactory.CreateLogger("JwtBearer");
+                    logger.LogInformation("Token JWT validado com sucesso");
+                    return Task.CompletedTask;
+                },
+                OnChallenge = context =>
+                {
+                    var loggerFactory = context.HttpContext.RequestServices.GetRequiredService<ILoggerFactory>();
+                    var logger = loggerFactory.CreateLogger("JwtBearer");
+                    logger.LogWarning("Desafio de autenticação JWT - Token ausente ou inválido");
+                    return Task.CompletedTask;
+                }
             };
         });
 
@@ -39,4 +66,3 @@ public static class AuthenticationExtensions
         return services;
     }
 }
-

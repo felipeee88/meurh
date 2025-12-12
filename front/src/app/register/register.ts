@@ -9,7 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 
 function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password');
@@ -47,7 +47,7 @@ export class RegisterComponent {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar
   ) {
@@ -90,7 +90,7 @@ export class RegisterComponent {
         password: formValue.password
       };
 
-      this.userService.createUser(userData).subscribe({
+      this.authService.register(userData).subscribe({
         next: () => {
           this.isLoading = false;
           this.snackBar.open('Conta criada com sucesso! Você pode fazer login agora.', 'Fechar', {
@@ -109,7 +109,7 @@ export class RegisterComponent {
           } else {
             this.errorMessage = 'Erro ao criar conta. Tente novamente.';
           }
-          console.error('Error creating user:', error);
+          console.error('Error registering user:', error);
         }
       });
     } else {

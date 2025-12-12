@@ -27,12 +27,35 @@ A solução está organizada em camadas seguindo os princípios de Clean Archite
 ## Pré-requisitos
 
 - .NET 8 SDK
-- PostgreSQL (ou altere a connection string para SQL Server)
+- PostgreSQL
 - Visual Studio 2022 ou VS Code
 
 ## Configuração
 
 ### 1. Banco de Dados
+
+**Importante**: O projeto utiliza **Database First** (não Code First). É necessário criar o banco de dados e as tabelas manualmente antes de executar a aplicação.
+
+#### 1.1. Criar o banco de dados
+
+```sql
+CREATE DATABASE "MeuRhDb";
+```
+
+#### 1.2. Executar o script SQL
+
+Execute o script SQL para criar a tabela `Users`:
+
+```bash
+psql -U postgres -d MeuRhDb -f MeuRh.Infra/Data/Scripts/create_users_table.sql
+```
+
+Ou execute diretamente no PostgreSQL:
+```sql
+\i MeuRh.Infra/Data/Scripts/create_users_table.sql
+```
+
+#### 1.3. Configurar a connection string
 
 Configure a connection string no arquivo `appsettings.json` ou `appsettings.Development.json`:
 
@@ -63,13 +86,17 @@ Configure as chaves JWT no `appsettings.json`:
 
 ## Executando o Projeto
 
-### 1. Restaurar dependências
+### 1. Criar o banco de dados
+
+Certifique-se de ter executado os scripts SQL conforme descrito na seção "Configuração > Banco de Dados".
+
+### 2. Restaurar dependências
 
 ```bash
 dotnet restore
 ```
 
-### 2. Executar a aplicação
+### 3. Executar a aplicação
 
 ```bash
 cd MeuRh.Api
@@ -81,7 +108,7 @@ A aplicação estará disponível em:
 - HTTPS: `https://localhost:7013`
 - Swagger: `http://localhost:5222` ou `https://localhost:7013`
 
-### 3. Executar testes
+### 4. Executar testes
 
 ```bash
 dotnet test
@@ -227,7 +254,6 @@ As validações são executadas automaticamente via pipeline do MediatR antes do
 - [ ] Implementar rate limiting
 - [ ] Adicionar logging estruturado (Serilog)
 - [ ] Implementar health checks
-- [ ] Adicionar migrations do EF Core
 - [ ] Configurar CI/CD
 - [ ] Adicionar mais testes de integração
 

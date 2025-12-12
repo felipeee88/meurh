@@ -29,3 +29,9 @@ export interface CreateUserRequest {
   password: string;
 }
 
+export interface RegisterRequest {
+  name: string;
+  email: string;
+  password: string;
+}
+

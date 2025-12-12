@@ -9,13 +9,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   const token = authService.getToken();
   const isLoginRequest = req.url.includes('/api/auth/login');
-  const isRegisterRequest = req.url.includes('/api/users') && req.method === 'POST';
+  const isRegisterRequest = req.url.includes('/api/auth/register');
   const isPublicRequest = isLoginRequest || isRegisterRequest;
 
   if (token && !isPublicRequest) {
+    const cleanToken = token.trim();
     req = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${cleanToken}`
       }
     });
   }
@@ -32,5 +33,4 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       return throwError(() => error);
     })
   );
-};
-
+}

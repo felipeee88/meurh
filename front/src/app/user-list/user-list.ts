@@ -39,7 +39,7 @@ export class UserListComponent implements OnInit {
   filteredUsers = signal<User[]>([]);
   displayedColumns: string[] = ['name', 'email', 'createdAt', 'actions'];
   filterValue = '';
-  isLoading = false;
+  isLoading = signal(false);
 
   constructor(private userService: UserService) {}
 
@@ -48,17 +48,17 @@ export class UserListComponent implements OnInit {
   }
 
   loadUsers(): void {
-    this.isLoading = true;
+    this.isLoading.set(true);
     const filterName = this.filterValue.trim() || undefined;
     this.userService.getUsers(filterName).subscribe({
       next: (users) => {
         this.users.set(users);
         this.filteredUsers.set(users);
-        this.isLoading = false;
+        this.isLoading.set(false);
       },
       error: (error) => {
         console.error('Error loading users:', error);
-        this.isLoading = false;
+        this.isLoading.set(false);
       }
     });
   }

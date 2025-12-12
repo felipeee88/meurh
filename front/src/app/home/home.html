@@ -3,7 +3,7 @@
     <mat-card-header>
       <mat-card-title>
         <mat-icon>waving_hand</mat-icon>
-        Bem-vindo@if (currentUser()?.login) {, {{ currentUser()!.login }} }!
+        Bem-vindo@if (currentUser()?.name) {, {{ currentUser()!.name }} }!
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>

@@ -22,17 +22,11 @@ A tabela `Users` é mapeada a partir da entidade `User` (MeuRh.Domain.Entities.U
 - **PK_Users**: Chave primária na coluna `Id`
 - **IX_Users_Email**: Índice único na coluna `Email`
 
-## Scripts Disponíveis
+## Script Disponível
 
-### PostgreSQL
-- `create_users_table.sql` - Script para PostgreSQL (banco padrão do projeto)
-
-### SQL Server
-- `create_users_table_sqlserver.sql` - Script alternativo para SQL Server
+- `create_users_table.sql` - Script para PostgreSQL
 
 ## Como Usar
-
-### PostgreSQL (Padrão)
 
 ```bash
 psql -U postgres -d MeuRhDb -f create_users_table.sql
@@ -44,11 +38,7 @@ Ou execute diretamente no PostgreSQL:
 \i create_users_table.sql
 ```
 
-### SQL Server
-
-Execute o script `create_users_table_sqlserver.sql` no SQL Server Management Studio ou via sqlcmd.
-
 ## Nota Importante
 
-O projeto usa `EnsureCreated()` no `Program.cs`, que cria automaticamente as tabelas quando a aplicação inicia. Estes scripts são fornecidos para referência e para criação manual do banco de dados, se necessário.
+O projeto utiliza **Database First** (não Code First). As tabelas devem ser criadas manualmente executando os scripts SQL antes de iniciar a aplicação.
 

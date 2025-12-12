@@ -46,15 +46,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('LoginComponent initialized');
-    
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
     
     if (this.authService.checkAuthentication()) {
-      console.log('User already authenticated, redirecting to:', this.returnUrl);
       this.router.navigate([this.returnUrl]);
-    } else {
-      console.log('User not authenticated, showing login form');
     }
   }
 
