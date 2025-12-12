@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/back/MeuRh/.vs/MeuRh/FileContentIndex/1072d7db-2285-44a8-a74e-a19630ed2c18.vsidx
+/back/MeuRh/.vs/MeuRh/FileContentIndex/23ddb16a-6cc9-4b29-addc-3e5ed3d12bf1.vsidx
+/back/MeuRh/.vs/MeuRh/FileContentIndex/94f8e502-cd80-4448-be0b-c6bfcb57e9e4.vsidx
+/back/MeuRh/.vs/MeuRh/FileContentIndex/a6393513-b2e8-4f54-a387-f3a807437922.vsidx
+/back/MeuRh/.vs/MeuRh/FileContentIndex/b88efc2c-9550-4eb8-b0e4-e2a56db86ecb.vsidx
+/back/MeuRh/.vs/MeuRh/v17/.suo
+/back/MeuRh/.vs/MeuRh/v17/DocumentLayout.json
+/back/MeuRh/MeuRh.Api/obj
+/back/MeuRh/MeuRh.Application/obj
+/back/MeuRh/MeuRh.Domain/obj
+/back/MeuRh/MeuRh.Infra/obj
+/back/MeuRh/MeuRh.Tests/obj/Debug/net8.0
