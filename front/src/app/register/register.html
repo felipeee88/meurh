@@ -1,0 +1,111 @@
+<div class="register-container">
+  <div class="register-wrapper">
+    <mat-card class="register-card">
+      <mat-card-header class="register-header">
+        <div class="logo-container">
+          <mat-icon class="logo-icon">person_add</mat-icon>
+        </div>
+        <mat-card-title class="register-title">Criar Conta</mat-card-title>
+        <mat-card-subtitle class="register-subtitle">Cadastre-se para acessar o sistema</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="register-content">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="name" placeholder="Digite seu nome completo" />
+            <mat-icon matPrefix>person</mat-icon>
+            @if (name?.hasError('required') && name?.touched) {
+              <mat-error>Nome é obrigatório</mat-error>
+            }
+            @if (name?.hasError('minlength') && name?.touched) {
+              <mat-error>Nome deve ter pelo menos 3 caracteres</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>E-mail</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="Digite seu e-mail" />
+            <mat-icon matPrefix>email</mat-icon>
+            @if (email?.hasError('required') && email?.touched) {
+              <mat-error>E-mail é obrigatório</mat-error>
+            }
+            @if (email?.hasError('email') && email?.touched) {
+              <mat-error>E-mail inválido</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Senha</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              placeholder="Digite sua senha"
+            />
+            <mat-icon matPrefix>lock</mat-icon>
+            @if (password?.hasError('required') && password?.touched) {
+              <mat-error>Senha é obrigatória</mat-error>
+            }
+            @if (password?.hasError('minlength') && password?.touched) {
+              <mat-error>Senha deve ter pelo menos 6 caracteres</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="form-field">
+            <mat-label>Confirmar Senha</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="confirmPassword"
+              placeholder="Confirme sua senha"
+            />
+            <mat-icon matPrefix>lock_outline</mat-icon>
+            @if (confirmPassword?.hasError('required') && confirmPassword?.touched) {
+              <mat-error>Confirmação de senha é obrigatória</mat-error>
+            }
+            @if (registerForm.hasError('passwordMismatch') && confirmPassword?.touched && confirmPassword?.dirty) {
+              <mat-error>As senhas não coincidem</mat-error>
+            }
+          </mat-form-field>
+
+          @if (errorMessage) {
+            <div class="error-message">
+              <mat-icon>error_outline</mat-icon>
+              <span>{{ errorMessage }}</span>
+            </div>
+          }
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="register-button"
+            [disabled]="registerForm.invalid || isLoading"
+          >
+            @if (isLoading) {
+              <mat-spinner diameter="20" class="button-spinner"></mat-spinner>
+              <span>Criando conta...</span>
+            } @else {
+              <span class="button-content">
+                <mat-icon>person_add</mat-icon>
+                <span>Criar Conta</span>
+              </span>
+            }
+          </button>
+
+          <button
+            mat-stroked-button
+            type="button"
+            class="cancel-button"
+            (click)="onCancel()"
+            [disabled]="isLoading"
+          >
+            <mat-icon>arrow_back</mat-icon>
+            <span>Voltar para Login</span>
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+

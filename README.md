@@ -133,3 +133,118 @@ Capacidade de fornecer um ambiente pronto para execução
 Entrega
 
 Enviar o link do repositório Git até a data combinada
+
+---
+
+## Executando o Projeto
+
+### Backend (.NET Core 8)
+
+1. Navegue até a pasta do backend:
+```bash
+cd back/MeuRh/MeuRh.Api
+```
+
+2. Restaure as dependências:
+```bash
+dotnet restore
+```
+
+3. Execute o projeto:
+```bash
+dotnet run
+```
+
+O backend estará disponível em:
+- **HTTP:** `http://localhost:5222`
+- **HTTPS:** `https://localhost:7013`
+- **Swagger/OpenAPI:** `http://localhost:5222` ou `https://localhost:7013`
+
+### Frontend (Angular 19)
+
+1. Navegue até a pasta do frontend:
+```bash
+cd front
+```
+
+2. Instale as dependências:
+```bash
+npm install
+```
+
+3. Execute o projeto:
+```bash
+npm start
+```
+
+O frontend estará disponível em:
+- **URL:** `http://localhost:4200`
+
+### Configuração
+
+O frontend está configurado para consumir a API do backend através da URL base:
+- **API Base URL:** `http://localhost:5222`
+
+A configuração está definida nos arquivos de environment:
+- `front/src/environments/environment.ts`
+- `front/src/environments/environment.development.ts`
+
+### Endpoints da API
+
+#### Autenticação
+
+**POST** `/api/auth/login`
+- Autentica um usuário e retorna um token JWT
+- Request body:
+  ```json
+  {
+    "email": "user@example.com",
+    "password": "password123"
+  }
+  ```
+- Response:
+  ```json
+  {
+    "status": "Sucesso",
+    "message": "Login realizado com sucesso",
+    "data": {
+      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "tokenType": "Bearer",
+      "expiresIn": 3600
+    }
+  }
+  ```
+
+#### Usuários
+
+**POST** `/api/users`
+- Cria um novo usuário (público, não requer autenticação)
+- Request body:
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password123"
+  }
+  ```
+
+**GET** `/api/users?name={nome}` (opcional)
+- Lista todos os usuários (requer autenticação)
+- Query parameter opcional: `name` para filtrar por nome
+- Headers:
+  ```
+  Authorization: Bearer {token}
+  ```
+
+**DELETE** `/api/users/{id}`
+- Exclui um usuário (requer autenticação)
+- Headers:
+  ```
+  Authorization: Bearer {token}
+  ```
+
+### CORS
+
+O backend está configurado para permitir requisições do frontend em `http://localhost:4200`.
+
+Para mais detalhes sobre a API, consulte a documentação Swagger em `http://localhost:5222` quando o backend estiver em execução.

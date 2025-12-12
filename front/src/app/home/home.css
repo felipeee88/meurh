@@ -1,0 +1,47 @@
+.home-container {
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.welcome-card {
+  margin-top: 40px;
+}
+
+mat-card-header {
+  display: flex;
+  justify-content: center;
+  padding: 24px 24px 0;
+}
+
+mat-card-title {
+  font-size: 28px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+mat-card-content {
+  padding: 24px;
+  text-align: center;
+}
+
+mat-card-content p {
+  font-size: 16px;
+  margin-bottom: 24px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.actions button,
+.actions a {
+  min-width: 180px;
+}
+

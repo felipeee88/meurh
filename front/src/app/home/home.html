@@ -1,0 +1,23 @@
+<div class="home-container">
+  <mat-card class="welcome-card">
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>waving_hand</mat-icon>
+        Bem-vindo@if (currentUser()?.login) {, {{ currentUser()!.login }} }!
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Você está autenticado no sistema MeuRH.</p>
+      <div class="actions">
+        <a mat-raised-button color="primary" routerLink="/users">
+          <mat-icon>people</mat-icon>
+          Gerenciar Usuários
+        </a>
+        <button mat-raised-button color="warn" (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          Sair
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
